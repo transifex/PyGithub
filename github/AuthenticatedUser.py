@@ -54,6 +54,7 @@ import github.Issue
 import github.Event
 import github.Authorization
 import github.Notification
+from github.Installation import INTEGRATION_PREVIEW_HEADERS
 
 
 class AuthenticatedUser(github.GithubObject.CompletableGithubObject):
@@ -974,6 +975,20 @@ class AuthenticatedUser(github.GithubObject.CompletableGithubObject):
             self._requester,
             "/user/subscriptions",
             None
+        )
+
+    def get_installations(self):
+        """
+        :calls: `GET /user/installations <http://developer.github.com/v3/apps>`_
+        :rtype: :class:`github.PaginatedList.PaginatedList` of :class:`github.Repository.Repository`
+        """
+        return github.PaginatedList.PaginatedList(
+            github.Installation.Installation,
+            self._requester,
+            "/user/installations",
+            None,
+            headers=INTEGRATION_PREVIEW_HEADERS,
+            list_item="installations",
         )
 
     def has_in_following(self, following):
