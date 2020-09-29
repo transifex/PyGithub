@@ -714,7 +714,7 @@ class GithubIntegration(object):
         conn = HTTPSConnection("api.github.com")
         conn.request(
             method="POST",
-            url="/installations/{}/access_tokens".format(installation_id),
+            url="/app/installations/{}/access_tokens".format(installation_id),
             headers={
                 "Authorization": "Bearer {}".format(self.create_jwt()),
                 "Accept": "application/vnd.github.machine-man-preview+json",
